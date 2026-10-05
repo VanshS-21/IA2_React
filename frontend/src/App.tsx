@@ -1,2 +1,32 @@
-import { Route, Routes } from 'react-router-dom'; import { ProtectedRoute } from './components/layout/ProtectedRoute'; import { AppLayout } from './components/layout/AppLayout'; import { LoginPage } from './pages/LoginPage'; import { BookListPage } from './pages/BookListPage'; import { IssueBookPage } from './pages/IssueBookPage'; import { MembersPage } from './pages/MembersPage'; import { MemberHistoryPage } from './pages/MemberHistoryPage'; import { NotFoundPage } from './pages/NotFoundPage';
-export default function App(): JSX.Element { return <Routes><Route path="/login" element={<LoginPage />} /><Route path="/" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}><Route index element={<BookListPage />} /><Route path="issue" element={<IssueBookPage />} /><Route path="members" element={<MembersPage />} /><Route path="members/:id/history" element={<MemberHistoryPage />} /></Route><Route path="*" element={<NotFoundPage />} /></Routes>; }
+import { Route, Routes } from "react-router-dom";
+import { ProtectedRoute } from "./components/layout/ProtectedRoute";
+import { AppLayout } from "./components/layout/AppLayout";
+import { LoginPage } from "./pages/LoginPage";
+import { BookListPage } from "./pages/BookListPage";
+import { CirculationPage } from "./pages/CirculationPage";
+import { IssueBookPage } from "./pages/IssueBookPage";
+import { MembersPage } from "./pages/MembersPage";
+import { MemberHistoryPage } from "./pages/MemberHistoryPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+export default function App(): JSX.Element {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<BookListPage />} />
+        <Route path="circulation" element={<CirculationPage />} />
+        <Route path="issue" element={<IssueBookPage />} />
+        <Route path="members" element={<MembersPage />} />
+        <Route path="members/:id/history" element={<MemberHistoryPage />} />
+      </Route>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
+}

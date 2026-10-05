@@ -1,0 +1,554 @@
+/* Operating-interface refinement layer: applied after the original visual system. */
+:root {
+  --font-ui: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bitter", ui-serif, Georgia, serif;
+  --text-body: 1rem;
+  --text-data: 0.875rem;
+  --text-meta: 0.8125rem;
+  --text-label: 0.6875rem;
+}
+body {
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+input,
+select,
+button {
+  font-family: var(--font-ui);
+}
+::selection {
+  background: #b9d9ce;
+  color: #122c35;
+}
+:focus-visible {
+  outline: 3px solid #d58b36;
+  outline-offset: 3px;
+}
+.kicker {
+  display: none;
+}
+.page h1,
+.page h2 {
+  font-family: var(--font-display);
+}
+.page h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.page h2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.page-hero p:not(.kicker),
+.page-heading p:not(.kicker) {
+  max-width: 64ch;
+  font-size: var(--text-body);
+  line-height: 1.65;
+}
+.login-poster h1 {
+  font-family: var(--font-display);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+.login-form h2 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.catalog-hero {
+  border-left: 0;
+  background: #e4efea;
+  padding: 34px 36px;
+}
+.catalog-count {
+  align-self: start;
+  color: #346e68;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 11px;
+  border: 1px solid #9bbdb4;
+  border-radius: 999px;
+  white-space: nowrap;
+  text-align: start;
+}
+.catalog-count strong {
+  display: inline;
+  font: inherit;
+  color: inherit;
+}
+.catalog-count span {
+  display: inline;
+  font: inherit;
+  color: inherit;
+}
+.catalog-count span::before {
+  content: " ";
+}
+.hero-action {
+  margin-top: 20px;
+}
+.toolbar {
+  align-items: end;
+}
+.search-field {
+  display: grid;
+  gap: 7px;
+  font-size: var(--text-meta);
+  font-weight: 700;
+  color: #31484a;
+}
+.search-field > span small {
+  font-weight: 500;
+  color: #687876;
+}
+.field-label input,
+.field-label select,
+.registration-form input,
+.search-field input,
+.combobox-shell input {
+  min-height: 46px;
+  font-size: var(--text-body);
+  line-height: 1.35;
+  border-radius: 6px;
+  border-color: #aebfba;
+}
+.button {
+  min-height: 44px;
+  border-radius: 6px;
+  transition:
+    transform 0.12s ease-out,
+    background-color 0.16s ease,
+    color 0.16s ease,
+    border-color 0.16s ease;
+}
+.button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.button-secondary:hover:not(:disabled) {
+  background: #edf5f1;
+}
+.button-quiet:hover:not(:disabled) {
+  background: #e5f1ec;
+}
+.table-wrap {
+  border-radius: 8px;
+  border-color: #d1ded9;
+}
+.error-message {
+  border: 1px solid #efb9b2;
+  border-left: 1px solid #efb9b2;
+  border-radius: 8px;
+}
+.issue-card {
+  border-radius: 10px;
+  box-shadow: 0 14px 30px #17352b0d;
+}
+.searchable-select {
+  position: relative;
+  display: grid;
+  gap: 7px;
+}
+.combobox-shell {
+  position: relative;
+}
+.combobox-shell input {
+  width: 100%;
+  padding-inline-end: 70px;
+  border: 1px solid #aebfba;
+  background: #fff;
+  outline: none;
+}
+.combobox-shell input:focus {
+  border-color: #24766f;
+  box-shadow: 0 0 0 3px #cfe3dc;
+}
+.clear-choice {
+  position: absolute;
+  inset-inline-end: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: #e4efea;
+  color: #215f5a;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.field-hint {
+  font-size: var(--text-meta);
+  color: #687876;
+  line-height: 1.45;
+}
+.option-list {
+  list-style: none;
+  position: absolute;
+  z-index: 5;
+  inset-inline: 0;
+  top: 100%;
+  margin: 2px 0 0;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid #9db5ae;
+  border-radius: 7px;
+  box-shadow: 0 14px 24px #12322a1f;
+  max-height: 276px;
+  overflow: auto;
+  transform-origin: top center;
+  animation: option-list-arrival 160ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.option-list li button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: start;
+  padding: 10px;
+  border-radius: 4px;
+  color: #18313a;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.option-list li button:hover:not(:disabled),
+.option-list li button:focus-visible {
+  background: #edf5f1;
+}
+.option-list li button:disabled {
+  color: #8a9694;
+  text-decoration: line-through;
+}
+.option-list li button span {
+  font-size: var(--text-meta);
+  text-decoration: none;
+}
+.no-options {
+  padding: 12px;
+  color: #687876;
+  font-size: var(--text-data);
+}
+.loan-review {
+  display: block;
+  background: #f5f9f7;
+  padding: 14px;
+  border: 0;
+  border-radius: 6px;
+}
+.loan-review span {
+  color: #687876;
+  font-size: var(--text-meta);
+}
+.loan-review strong {
+  display: block;
+  margin: 4px 0;
+  font-family: var(--font-display);
+}
+.loan-review p {
+  margin: 0;
+  color: #687876;
+}
+.confirmation-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  border: 1px solid #8fc0a6;
+  border-radius: 9px;
+  background: #edf8f0;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  transform-origin: left center;
+  animation: circulation-confirmation 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.confirmation-panel strong {
+  color: #176240;
+}
+.confirmation-panel p {
+  margin: 4px 0 0;
+  line-height: 1.5;
+  color: #315b47;
+}
+.confirmation-actions,
+.form-actions {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.registration-panel {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.8fr);
+  gap: 28px;
+  background: #eaf4ef;
+  border-radius: 9px;
+  padding: 23px;
+  margin-bottom: 24px;
+  transform-origin: top center;
+  animation: registration-reveal 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.registration-panel p {
+  color: #5c706b;
+  margin: 5px 0 0;
+  line-height: 1.5;
+}
+.registration-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+.registration-form .form-actions {
+  align-self: end;
+}
+.return-confirmation {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 180px;
+}
+.return-confirmation span {
+  width: 100%;
+  font-size: var(--text-meta);
+  font-weight: 700;
+  color: #625441;
+}
+.return-confirmation .button {
+  min-height: 34px;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+.mobile-record-list {
+  display: none;
+}
+.mobile-nav {
+  display: none;
+}
+.access-note {
+  margin: 20px 0 0;
+  color: #687876;
+  font-size: var(--text-meta);
+  line-height: 1.5;
+}
+.field-label,
+.search-field,
+th {
+  letter-spacing: 0.01em;
+}
+th {
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+td {
+  font-size: var(--text-data);
+  line-height: 1.45;
+}
+table,
+.pagination,
+.due-preview,
+.record-meta,
+.catalog-count {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings:
+    "tnum" 1,
+    "kern" 1;
+}
+.subtext {
+  font-size: var(--text-meta);
+  line-height: 1.4;
+}
+.table-link,
+.back-link {
+  text-underline-offset: 0.16em;
+  text-decoration-thickness: 1px;
+}
+.demo-note {
+  border-left: 0;
+  border-radius: 5px;
+}
+@keyframes option-list-arrival {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scaleY(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+@keyframes registration-reveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 18% 0 round 9px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 9px);
+  }
+}
+@keyframes circulation-confirmation {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0 round 9px);
+  }
+  68% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 9px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 9px);
+  }
+}
+@media (max-width: 860px) {
+  .registration-panel {
+    grid-template-columns: 1fr;
+  }
+  .registration-form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .registration-form .form-actions {
+    grid-column: 1/-1;
+  }
+  .page {
+    padding-inline: 28px;
+  }
+}
+@media (max-width: 760px) {
+  body {
+    font-size: 16px;
+  }
+  .catalog-hero {
+    padding: 26px 22px;
+  }
+  .page h1 {
+    font-size: 2rem;
+    line-height: 1.12;
+  }
+  .login-poster h1 {
+    font-size: 3rem;
+  }
+  .catalog-count {
+    justify-self: start;
+  }
+  .toolbar {
+    align-items: stretch;
+  }
+  .clear-filters {
+    align-self: start;
+  }
+  .table-wrap.has-mobile-cards {
+    display: none;
+  }
+  .mobile-record-list {
+    display: grid;
+    gap: 12px;
+  }
+  .mobile-nav {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 0 14px 12px;
+    background: #122c35;
+  }
+  .mobile-nav a {
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    border-radius: 5px;
+    color: #c8d9d5;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .mobile-nav a.active {
+    background: #1d424d;
+    color: #fff;
+  }
+  .record-card {
+    border: 1px solid #d1ded9;
+    border-radius: 8px;
+    background: #fff;
+    padding: 16px;
+    display: grid;
+    gap: 14px;
+  }
+  .record-card strong {
+    font-size: 15px;
+  }
+  .record-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    color: #5e706d;
+    font-size: 13px;
+  }
+  .history-card .return-confirmation,
+  .history-card > .button {
+    width: 100%;
+  }
+  .history-card > .button {
+    margin-top: 2px;
+  }
+  .issue-card {
+    padding: 20px;
+  }
+  .confirmation-panel {
+    display: grid;
+    gap: 18px;
+  }
+  .confirmation-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .confirmation-actions .button {
+    width: 100%;
+  }
+  .registration-panel {
+    padding: 18px;
+  }
+  .registration-form {
+    grid-template-columns: 1fr;
+  }
+  .registration-form .form-actions {
+    grid-column: auto;
+  }
+  .form-actions .button {
+    flex: 1;
+  }
+  .return-confirmation {
+    min-width: 0;
+  }
+  .return-confirmation .button {
+    flex: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+  .confirmation-panel,
+  .option-list,
+  .registration-panel {
+    animation: none;
+  }
+  .button {
+    transition:
+      background-color 0.12s ease,
+      color 0.12s ease,
+      border-color 0.12s ease;
+  }
+  .button:active:not(:disabled) {
+    transform: none;
+  }
+  .spinner {
+    animation-duration: 1.35s;
+  }
+}
