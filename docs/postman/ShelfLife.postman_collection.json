@@ -1,0 +1,16 @@
+{
+  "info": { "name": "ShelfLife API", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:5000/api" }, { "key": "token", "value": "" }],
+  "item": [
+    { "name": "Login", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/auth/login", "body": { "mode": "raw", "raw": "{\n  \"email\": \"librarian@shelflife.test\",\n  \"password\": \"Passw0rd!\"\n}" } }, "event": [{ "listen": "test", "script": { "exec": ["pm.environment.set('token', pm.response.json().data.token);"] } }] },
+    { "name": "Health", "request": { "method": "GET", "url": "{{baseUrl}}/health" } },
+    { "name": "List books", "request": { "method": "GET", "url": "{{baseUrl}}/books?page=1&limit=10" } },
+    { "name": "Genres", "request": { "method": "GET", "url": "{{baseUrl}}/books/genres" } },
+    { "name": "Create book", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/books", "body": { "mode": "raw", "raw": "{\"title\":\"Postman Book\",\"author\":\"ShelfLife\",\"isbn\":\"9780306406157\",\"genre\":\"Demo\",\"totalCopies\":2}" } } },
+    { "name": "Create member", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/members", "body": { "mode": "raw", "raw": "{\"name\":\"Postman Member\",\"email\":\"postman@example.test\"}" } } },
+    { "name": "List members", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/members" } },
+    { "name": "Issue book", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/borrow", "body": { "mode": "raw", "raw": "{\"bookId\":\"REPLACE\",\"memberId\":\"REPLACE\"}" } } },
+    { "name": "Return book", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/borrow/return/REPLACE" } },
+    { "name": "Member history", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/members/REPLACE/history" } }
+  ]
+}

@@ -1,0 +1,3 @@
+import type { BorrowStatus } from '../../types/models';
+import { isOverdue, overdueDays } from '../../utils/date';
+export function Badge({ status, dueDate, returnDate }: { status: BorrowStatus; dueDate: string; returnDate: string | null }): JSX.Element { if (isOverdue(dueDate, returnDate)) return <span className="badge badge-overdue">Overdue · {overdueDays(dueDate)}d</span>; if (returnDate && new Date(returnDate) > new Date(dueDate)) return <span className="badge badge-late">Returned late</span>; const labels: Record<BorrowStatus, string> = { issued: 'Issued', returned: 'Returned', overdue: 'Overdue' }; return <span className={`badge badge-${status}`}>{labels[status]}</span>; }

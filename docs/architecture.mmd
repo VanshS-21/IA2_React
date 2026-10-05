@@ -1,0 +1,18 @@
+flowchart LR
+  U[Browser: React SPA] -->|static assets| CDN[CDN]
+  U -->|HTTPS /api| WAF[WAF + Rate limiter]
+  WAF --> LB[Load Balancer]
+  LB --> API1[Express API pod 1]
+  LB --> API2[Express API pod 2]
+  LB --> APIN[Express API pod N - autoscaled]
+  API1 & API2 & APIN --> REDIS[(Redis cache)]
+  API1 & API2 & APIN --> MONGOS[mongos routers]
+  MONGOS --> S1[(Shard 1: primary + 2 secondaries)]
+  MONGOS --> S2[(Shard 2 ...)]
+  MONGOS --> SN[(Shard N)]
+  API1 & API2 & APIN -->|publish events| Q[[Message queue]]
+  Q --> W[Workers: overdue marking, notifications, reports]
+  W --> MONGOS
+  W --> EMAIL[Email/SMS provider]
+  API1 & API2 & APIN --> OBS[Logs + metrics + tracing]
+  S1 -. change stream .-> ES[(Search index)]

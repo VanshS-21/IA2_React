@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const { createMember, listMembers } = require('../controllers/member.controller');
+const { memberHistory } = require('../controllers/borrow.controller');
+const { protect } = require('../middleware/auth');
+const validate = require('../middleware/validate');
+const { createMemberSchema, memberQuerySchema, idParamSchema } = require('../validators/member.schema');
+const { historyQuerySchema } = require('../validators/borrow.schema');
+router.use(protect);
+router.post('/', validate(createMemberSchema), createMember);
+router.get('/', validate(memberQuerySchema, 'query'), listMembers);
+router.get('/:id/history', validate(idParamSchema, 'params'), validate(historyQuerySchema, 'query'), memberHistory);
+module.exports = router;

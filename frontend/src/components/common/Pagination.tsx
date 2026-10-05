@@ -1,0 +1,2 @@
+import type { PageMeta } from '../../types/api'; import { Button } from './Button';
+export function Pagination({ meta, onPage }: { meta: PageMeta; onPage: (page: number) => void }): JSX.Element { return <nav className="pagination" aria-label="Pagination"><span>Page {meta.page} of {meta.totalPages} · {meta.total} results</span><div><Button tone="quiet" disabled={!meta.hasPrev} onClick={() => onPage(meta.page - 1)}>Previous</Button><Button tone="quiet" disabled={!meta.hasNext} onClick={() => onPage(meta.page + 1)}>Next</Button></div></nav>; }
